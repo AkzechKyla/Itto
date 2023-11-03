@@ -34,10 +34,13 @@ class CharacterAI:
         await future
 
     async def send(self, message: str) -> str:
-        data = await self.chat.send_message(
-            self.character_id,
-            self.chat_info.chat_id,
-            message,
-            {"author_id": self.chat_info.creator_id},
-        )
-        return data["turn"]["candidates"][0]["raw_content"]
+        try:
+            data = await self.chat.send_message(
+                self.character_id,
+                self.chat_info.chat_id,
+                message,
+                {"author_id": self.chat_info.creator_id},
+            )
+            return data["turn"]["candidates"][0]["raw_content"]
+        except RuntimeError:
+            return "Please, slow down a bit."
