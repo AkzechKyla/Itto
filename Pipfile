@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+app = "python run.py"
+tests = "coverage run -m pytest"
+check = "bash -c 'black . && mypy . && mypy --install-types'"
+
+[packages]
+uvloop = {version = "*", sys_platform = "== 'linux'"}
+
+[dev-packages]
+mypy = "*"
+black = "*"
+coverage = "*"
+pytest = "*"
+
+[requires]
+python_version = "3.11"
