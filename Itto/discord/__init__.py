@@ -82,7 +82,9 @@ class Bot(dc.Bot):
                 return
 
             if message.channel.id == 1169974916754440252:
-                reply = await self.ai.send(message.content)
+                async with message.channel.typing():
+                    reply = await self.ai.send(message.content)
+
                 await self.send(message.channel, reply)
                 return
 
