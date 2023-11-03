@@ -10,6 +10,7 @@ check = "bash -c 'black . && mypy . && mypy --install-types'"
 
 [packages]
 characterai = "*"
+websockets = "*"
 
 [dev-packages]
 mypy = "*"
