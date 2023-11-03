@@ -11,6 +11,7 @@ check = "bash -c 'black . && mypy . && mypy --install-types'"
 [packages]
 characterai = "*"
 websockets = "*"
+"discord.py" = "*"
 
 [dev-packages]
 mypy = "*"
