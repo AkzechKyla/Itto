@@ -5,6 +5,7 @@ import logging
 from typing import cast, Any
 import discord
 from discord.ext import commands as dc
+from Itto.cai import CharacterAI
 from Itto.logging import get_logger
 from Itto.discord.embeds import ErrorEmbed
 
@@ -18,6 +19,7 @@ class Bot(dc.Bot):
             intents=discord.Intents.all(),
         )
         self.color = discord.Colour.from_rgb(245, 224, 66)
+        self.ai = CharacterAI("TKuU0oDYJ3QfF4InA6C2jwK8pmqecERMYuJ7FLHXEHU")
 
         for name in dir(self):
             if name.startswith("_on_") and name.endswith("_event"):
@@ -36,6 +38,8 @@ class Bot(dc.Bot):
         self.add_listener(event_wrapper, event_name)
 
     async def start(self, token: str, *, reconnect: bool = True) -> None:
+        await self.ai.initialize()
+
         # Load cogs
         for path in glob.iglob(
             os.path.join("watdo", "discord", "cogs", "**", "*"),
@@ -75,6 +79,11 @@ class Bot(dc.Bot):
             bot_user = cast(discord.User, self.user)
 
             if message.author.id == bot_user.id:
+                return
+
+            if message.channel.id == 1169974916754440252:
+                reply = await self.ai.send(message.content)
+                await self.send(message.channel, reply)
                 return
 
             if not message.content.startswith(str(self.command_prefix)):
