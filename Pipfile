@@ -9,7 +9,7 @@ tests = "coverage run -m pytest"
 check = "bash -c 'black . && mypy . && mypy --install-types'"
 
 [packages]
-uvloop = {version = "*", sys_platform = "== 'linux'"}
+characterai = "*"
 
 [dev-packages]
 mypy = "*"
